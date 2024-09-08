@@ -1,0 +1,98 @@
+.center-container {
+    width: 1080px;
+    height: 500px;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-container-title {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+}
+
+.center-container-input {
+    margin: 34px 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.center-container-input input {
+    width: 300px;
+    height: 35px;
+
+    padding: 0 40px 0 36px;
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 3px;
+}
+
+.wrong {
+    border-color: red;
+}
+
+.correct {
+    border-color: green;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.img-login {
+    height: 18px;
+    width: auto;
+    position: absolute;
+    top: 9px;
+    left: 8px;
+}
+
+.img-hidden {
+    height: 18px;
+    width: auto;
+    position: absolute;
+    top: 9px;
+    right: 10px;
+}
+
+.img-hidden:hover {
+    transform: scale(1.2); /* 이미지 크기를 약간 키우기 */
+    filter: brightness(1.2); /* 이미지 밝기 약간 증가 */
+}
+
+.center-container-alert {
+    margin-left: 33px;
+    width: 400px;
+    margin-top: 5px;
+    font-size: 13px;
+    color: red;
+
+}
+
+.center-container-button {
+    margin-top: 30px;
+}
+
+.center-container-button button {
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: 6px;
+    margin: 5px;
+
+    height: 30px;
+    font-size: 14px;
+
+    color: white;
+    background-color: #ed5b2d;
+}
+
+.login-button {
+    width: 120px;
+}
+
+.join-button {
+    width: 300px;
+}

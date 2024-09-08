@@ -1,0 +1,172 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+}
+.body {
+    margin: 0;
+    font-family: Pretendard-Regular;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+a:hover,
+a:active {
+    font-weight: bold;
+    color: #ed5b2d;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* ============== 헤더 CSS ================ */
+
+header {
+    height: 151px;
+    width: 1080px;
+
+    margin: auto;
+    position: relative;
+}
+
+.user-nav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.user-link-text {
+    font-size: 12px;
+    margin-left: 15px;
+}
+
+.user-name-text {
+    color: black;
+}
+
+.logo {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.img-logo {
+    width: auto;
+    height: 46px;
+}
+
+.menu-nav {
+    width: 100%;
+    height: 45px;
+    position: absolute;
+    bottom: 0;
+}
+
+.menu-items {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    font-size: 15px;
+    font-weight: bold;
+    /* border-top: 1px solid #f1f3f6; */
+    border-bottom: 2px solid black;
+}
+
+.menu-items ul > li {
+    display: inline-block;
+    margin: 0 20px 0 5px;
+    color: #03cf5d;
+}
+
+.menu-items ul > li > a:hover {
+    color: #ed5b2d;
+}
+
+
+/* ============== 풋터 CSS ================ */
+
+footer {
+    width: 1080px;
+    height: 119px;
+
+    margin: auto;
+    padding: 8px 0;
+
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+}
+
+.bottom-box {
+    flex: 3;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #f1f3f6;
+}
+
+.row-area {
+    padding: 5px 0 0 12px;
+    flex: 4;
+    line-height: 2em;
+}
+
+.row-area-item {
+    display: flex;
+}
+
+.row-area-item span {
+    flex: 1;
+}
+
+.row-area-item ul {
+    flex: 6;
+}
+
+.row-area-item ul > li {
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.col-area {
+    flex: 1;
+    display: flex;
+    padding-top: 8px;
+}
+
+.col-area-item {
+    line-height: 20px;
+}
+
+.col-area-img {
+    width: 60px;
+    height: 60px;
+    margin-left: 12px;
+}
+
+.copy-right {
+    flex: 1;
+    padding: 10px 55px 0 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: end;
+    font-weight: bold;
+}
+
+.bold13 {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+main {
+    min-height: 500px;
+}

@@ -1,0 +1,76 @@
+.main-container {
+    width: 1080px;
+    margin: auto;
+    padding: 19px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 각 행(세로줄)의 길이 */
+    grid-template-rows: 232px 232px; /* 각 열(가로줄)의 길이 */
+    gap: 5px;
+
+
+    justify-items: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+}
+
+.main-item {
+    width: 88%;
+    height: 88%;
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.main-item-title {
+    flex: 1;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 15px;
+    border-bottom: 2px solid black;
+}
+
+.main-post-area {
+    flex: 6;
+    padding: 5px;
+}
+
+.main-post-item {
+    width: 100%;
+    display: flex;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.width14 { width: 14%; }
+.width60 { width: 60%; }
+.width7 { width: 7%; }
+
+.main-post-content {
+    display: flex;
+    align-items: center;
+    width: 60%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-wrap {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.more-post {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    font-size: 12px;
+}
+
+.new-post {
+    padding-left: 7px;
+    color: red;
+}
