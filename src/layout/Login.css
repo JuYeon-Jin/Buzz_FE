@@ -31,16 +31,33 @@
     border-radius: 3px;
 }
 
-.wrong {
-    border-color: red;
+.width100 {
+    width: 210px !important;
 }
 
-.correct {
-    border-color: green;
+.duplication-check-btn {
+    width: 80px;
+    height: 35px;
+    margin-left: 10px;
+
+    border: 2px solid #ff5f2e;
+    border-radius: 8px;
+    color: black;
+    background: white;
+}
+
+.duplication-check-btn:hover {
+    font-weight: 500;
+    background-color: #ff5f2e;
+    color: #e1eef6;
+    letter-spacing: 0.03em;
 }
 
 .input-wrapper {
     position: relative;
+
+    display: flex;
+    align-items: center;
 }
 
 .img-login {
@@ -70,7 +87,20 @@
     margin-top: 5px;
     font-size: 13px;
     color: red;
+}
 
+.valid-hidden {
+    display: none;
+}
+
+.valid-true {
+    border-color: #01A23C !important;
+    background-color: rgba(1, 162, 60, 0.1);
+}
+
+.valid-false {
+    border-color: red !important;
+    background-color: rgba(255, 0, 0, 0.1);
 }
 
 .center-container-button {
@@ -82,15 +112,23 @@
     border-radius: 6px;
     margin: 5px;
 
-    height: 30px;
+    height: 34px;
     font-size: 14px;
 
     color: white;
-    background-color: #ed5b2d;
+    background-color: #ff5f2e;
+}
+
+.center-container-button button:hover {
+    filter: brightness(1.2);
 }
 
 .login-button {
     width: 120px;
+}
+
+.login-button a {
+    color: white;
 }
 
 .join-button {

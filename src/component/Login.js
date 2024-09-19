@@ -1,11 +1,12 @@
 import {useDispatch} from "react-redux";
 import {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {handleToken} from "../common/TokenUtils";
 
 const Login = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
@@ -30,8 +31,11 @@ const Login = () => {
             })
         });
 
-        const data = await response.text();
-        handleToken(data, dispatch);
+        if (response.ok) { // 응답이 성공적이면
+            const data = await response.text();
+            handleToken(data, dispatch);
+            navigate("/"); // 성공 시 홈으로 이동
+        }
     }
 
 
@@ -51,14 +55,6 @@ const Login = () => {
                     <input type="password" placeholder="비밀번호" maxLength="15" onChange={handlePasswordChange}/>
                 </div>
 
-            </div>
-
-
-            <div className="center-container-alert">
-                <span>아이디: 5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</span>
-            </div>
-            <div className="center-container-alert">
-                <span>비밀번호: 8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해주세요.</span>
             </div>
 
 

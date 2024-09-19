@@ -19,10 +19,11 @@ a {
 a:hover,
 a:active {
     font-weight: bold;
-    color: #ed5b2d;
+    color: #ff5f2e;
 }
 
 ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
 }
@@ -40,11 +41,11 @@ header {
 .user-nav {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 25px;
 }
 
 .user-link-text {
-    font-size: 12px;
+    font-size: 13px;
     margin-left: 15px;
 }
 
@@ -87,11 +88,6 @@ header {
     margin: 0 20px 0 5px;
     color: #03cf5d;
 }
-
-.menu-items ul > li > a:hover {
-    color: #ed5b2d;
-}
-
 
 /* ============== 풋터 CSS ================ */
 
