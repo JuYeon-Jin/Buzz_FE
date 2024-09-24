@@ -32,7 +32,7 @@ const Footer = () => {
                         <div className="bold13">프로젝트 빙고</div>
                         <div className="ac_link"><a href="/">바로가기</a></div>
                     </div>
-                    <a href="/"><img src="img/bingo.png" className="col-area-img" alt=""/></a>
+                    <a href="/"><img src="/img/bingo.png" className="col-area-img" alt=""/></a>
                 </div>
 
                 <div className="col-area">
@@ -40,7 +40,7 @@ const Footer = () => {
                         <div className="bold13">프로젝트</div>
                         <div className="ac_link"><a href="/">바로가기</a></div>
                     </div>
-                    <a href="/"><img src="img/bingo.png" className="col-area-img" alt=""/></a>
+                    <a href="/"><img src="/img/bingo.png" className="col-area-img" alt=""/></a>
                 </div>
             </div>
 

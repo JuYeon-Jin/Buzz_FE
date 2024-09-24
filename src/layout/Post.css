@@ -1,0 +1,222 @@
+.post-container {
+    width: 1080px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: 1fr; /* 각 행(세로줄)의 길이 */
+    gap: 5px;
+
+    justify-items: center;
+    align-items: center;
+}
+
+.filter-container {
+    width: 80%;
+    height: 110px;
+    margin-top: 23px;
+    margin-bottom: 12px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-filter {
+    margin-bottom: 7px;
+}
+
+.category-filter select {
+    width: 120px;
+    height: 34px;
+    padding-left: 5px;
+    outline: none;
+    font-size: 13px;
+}
+
+.category-filter input {
+    width: 420px;
+    height: 34px;
+    margin-left: 10px;
+    padding-left: 10px;
+    padding-right: 40px;
+}
+
+.category-filter button {
+    height: 30px;
+    width: 32px;
+    padding-left: 0px;
+
+    position: relative;
+    top: 8px;
+    right: 34px;
+
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: pointer;
+}
+
+.img-search {
+    height: 90%;
+    width: auto;
+}
+
+.img-search:hover {
+    transform: scale(1.05);
+}
+
+.date-filter input {
+    width: 120px;
+    height: 26px;
+
+    padding-right: 3px;
+    margin: 0 9px;
+
+    text-align: center;
+    font-size: 13px;
+}
+
+.reset-option {
+    position: absolute;
+}
+
+.img-reset {
+    height: 13px;
+    width: auto;
+
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+
+.reset-option button {
+    position: relative;
+    top: 16px;
+    left: 226px;
+    width: 77px;
+    text-align: right;
+
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-size: 12px;
+}
+
+.reset-option button:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.reset-option button:hover .img-reset {
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+.sort-container {
+    height: 30px;
+    width: 80%;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-left: 7px;
+}
+
+.board-type {
+    width: 80%;
+    position: relative;
+    margin-top: -40px;
+    margin-left: 20px;
+
+    font-size: 20px;
+    color: #ff5f2e;
+    font-weight: bold;
+}
+
+.sort-option select {
+    height: 24px;
+    font-size: 12px;
+    outline: none;
+}
+
+.option-select-l {
+    width: 73px;
+    padding-left: 2px;
+    margin-right: 5px;
+}
+
+.option-select-s {
+    width: 55px;
+    padding-left: 1px;
+}
+
+.write-post {
+    width: 64px;
+    height: 26px;
+    margin-left: 10px;
+    font-size: 12px;
+
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: 3px;
+    color: white;
+    background-color: #ff5f2e;
+    letter-spacing: 0.1em;
+}
+
+.write-post:hover {
+    filter: brightness(1.2);
+}
+
+.post-list {
+    width: 80%;
+    min-height: 200px;
+    font-size: 14px;
+}
+
+.width3 { width: 3%; }
+.width6 { width: 6%; }
+.width16 { width: 16%; }
+.width56 { width: 56%; }
+.width9 { width: 9%; }
+
+.text-left {
+    text-align: left !important;
+}
+
+.list-title {
+    display: flex;
+    text-align: center;
+    line-height: 2.5;
+    border-bottom: 2px solid black;
+}
+
+.list-item {
+    display: flex;
+    text-align: center;
+    line-height: 2.3;
+    border-bottom: 1px solid lightgrey;
+}
+
+.post-list-title {
+    display: flex;
+    align-items: center;
+    width: 53%;
+}
+
+.pages {
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+
+.pages button {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    cursor: pointer;
+
+    padding: 1px;
+    margin: 0 3px;
+    font-size: 13px;
+}
+
+.pages button:hover {
+    color: #ff5f2e;
+}
