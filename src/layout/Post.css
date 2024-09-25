@@ -124,6 +124,7 @@
 .board-type {
     width: 80%;
     position: relative;
+    z-index: -1;
     margin-top: -40px;
     margin-left: 20px;
 

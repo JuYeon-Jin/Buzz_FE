@@ -1,5 +1,5 @@
 import {Link, Outlet, useNavigate, useParams, useSearchParams} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const Posts = () => {
 
@@ -18,24 +18,34 @@ const Posts = () => {
     const [endDate, setEndDate] = useState('');
     const [categoryId, setCategoryId] = useState(0);
     const [keyword, setKeyword] = useState('');
-    const [pageLimit, setPageLimit] = useState(10);
-    const [sortBy, setSortBy] = useState('');
-    const [order, setOrder] = useState('');
+    const [limit, setLimit] = useState(10);
+    const [sortField, setSortField] = useState('');
+    const [sortDirection, setSortDirection] = useState('')
 
 
     /**
-     * 조건 (page, startDate, endDate, categoryId, keyword, pageLimit, sortBy, order) 으로 새로운 쿼리 스트링을 구성한다.
+     * 게시글 작성 페이지로 이동.
+     */
+    const handleWritePost = () => {
+        const newPath = window.location.pathname + '/new';
+        navigate(newPath);
+    }
+
+
+    /**
+     * 조건 (page, startDate, endDate, categoryId, keyword, limit, sortField, sortDirection) 으로 새로운 쿼리 스트링을 구성한다.
      */
     const buildQueryParams = () => {
         const queryParams = new URLSearchParams();
+
+        if (sortField !== '') queryParams.append('sortField', sortField);
+        if (sortDirection !== '') queryParams.append('sortDirection', sortDirection);
+        if (limit !== 10) queryParams.append('limit', String(limit));
 
         if (startDate !== '') queryParams.append('startDate', startDate);
         if (endDate !== '') queryParams.append('endDate', endDate);
         if (categoryId !== 0) queryParams.append('categoryId',  String(categoryId));
         if (keyword !== '') queryParams.append('keyword', keyword);
-        if (pageLimit !== 10) queryParams.append('pageLimit', String(pageLimit));
-        if (sortBy !== '') queryParams.append('sortBy', sortBy);
-        if (order !== '') queryParams.append('sortOrder', order);
 
         return queryParams;
     }
@@ -45,19 +55,125 @@ const Posts = () => {
      * 주어진 쿼리 스트링을 사용하여 FE 의 URL 을 변경하는 라우팅을 수행한다.
      */
     const navigateWithParams = (queryParams) => {
-        navigate(`/board/community?${queryParams}`);
+        const path = window.location.pathname;
+        navigate(`${path}?${queryParams}`);
     }
 
 
-    // 페이지(page, pageLimit, sortBy, sortOrder) 변경시에는 기존 검색조건을 그대로 유지한채 서버에 요청.
-    // 이때, page 는 무조건 1 로 돌아감.
-    const fetchFilteredPosts = () => {
+    /**
+     * GET HTTP Method 방식으로 fetch 요청을 보낸다.
+     */
+    const getRequest = async (path, params) => {
 
+        const url = params === null
+            ? new URL(`${path}`, 'http://localhost:8080')
+            : new URL(`${path}?${params}`, 'http://localhost:8080');
+
+        const response = await fetch(url, {
+            method: 'GET'
+        })
+
+        const data = await response.json();
+        return data;
     }
 
 
+    // 페이지 이동 시 동작
+    const pageRequest = (newPage) => {
+        const queryParams = new URLSearchParams(window.location.search);
+
+        if (queryParams.has("page")) {
+            queryParams.set('page', newPage);
+        } else {
+            queryParams.append('page', newPage);
+        }
+
+        navigateWithParams(queryParams);
+    }
 
 
+    // 검색 버튼 누를시 동작
+    const searchFilterRequest = () => {
+        setPage(1);
+
+        const parameter = buildQueryParams();
+        navigateWithParams(parameter);
+    }
+
+
+    // 한 페이지당 게시물 갯수 변경시 동작,
+    const limitRequest = (newLimit) => {
+        setPage(1);
+        setLimit(newLimit);
+
+        const queryParams = new URLSearchParams(window.location.search);
+
+        if (queryParams.has("limit")) {
+            queryParams.set('limit', newLimit);
+        } else {
+            queryParams.append('limit', newLimit);
+        }
+
+        navigateWithParams(queryParams);
+    }
+
+    // 정렬 기준 변경시 동작,
+    const sortCriteriaRequest = (newField) => {
+        setPage(1);
+        setSortField(newField);
+
+        const queryParams = new URLSearchParams(window.location.search);
+
+        if (queryParams.has("sortField")) {
+            queryParams.set('sortField', newField);
+        } else {
+            queryParams.append('sortField', newField);
+        }
+
+        navigateWithParams(queryParams);
+    }
+
+    // 정렬 순서 변경시 동작, sortDirection
+    const sortOrderRequest = (newDirection) => {
+        setPage(1);
+        setSortDirection(newDirection);
+
+        const queryParams = new URLSearchParams(window.location.search);
+
+        if (queryParams.has("sortDirection")) {
+            queryParams.set('sortDirection', newDirection);
+        } else {
+            queryParams.append('sortDirection', newDirection);
+        }
+
+        navigateWithParams(queryParams);
+    }
+
+
+    /**
+     * [useEffect]
+     * FE 의 path 경로가 바뀔 때, 해당 path 를 사용하는 게시판의 카테고리를 가져온다.
+     */
+    useEffect(() => {
+        const url = `/user${location.pathname}/category`
+
+        getRequest(url, null).then(data => setCategory(data));
+    }, [location.pathname]);
+
+
+    /**
+     * [useEffect]
+     * FE 의 parameter 가 변경될 때, 새로은 게시물 목록을 서버에서 가져온다.
+     */
+    useEffect(() => {
+        const url = `/user${location.pathname}`
+
+        getRequest(url, searchParams).then(data => {
+            const { pagination, postList } = data;
+            setPagination(pagination);
+            setPostList(postList);
+        });
+    }, [searchParams]); // 페이지나 검색 파라미터가 바뀔 때 호출됨
 
 
     return (
@@ -94,8 +210,8 @@ const Posts = () => {
 
                     <div className="sort-option">
                         <select defaultValue="postId" className="option-select-l">
-                            <option value="postId">등록일시</option>
-                            <option value="views">조회수</option>
+                            <option value="recent">등록일시</option>
+                            <option value="popular">조회수</option>
                         </select>
                         <select defaultValue="desc" className="option-select-l">
                             <option value="desc">내림차순</option>
@@ -108,7 +224,7 @@ const Posts = () => {
                             <option value="40">40개</option>
                             <option value="50">50개</option>
                         </select>
-                        <button className="write-post">글쓰기</button>
+                        <button className="write-post" onClick={handleWritePost}>글쓰기</button>
                     </div>
                 </div>
 

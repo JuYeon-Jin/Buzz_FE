@@ -12,6 +12,7 @@ import Posts from "../component/Posts";
 
 import CommunityList from "../component/post/CommunityList";
 import CommunityArticle from "../component/post/CommunityArticle";
+import CommunityNew from "../component/post/CommunityNew";
 
 const AppRouter = () => {
     return (
@@ -33,6 +34,7 @@ const AppRouter = () => {
             </Route>
 
             <Route path="/board/community/:postId" element={ <CommunityArticle /> } />
+            <Route path="/board/community/new" element={ <CommunityNew /> } />
 
         </Routes>
 
