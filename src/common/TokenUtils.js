@@ -1,43 +1,38 @@
-import { setUserInfo, clearUserInfo } from '../features/userSlice';
+import { setUserInfo } from '../features/userSlice';
 
 
 /**
+ * JWT 토큰을 디코딩하고 사용자 닉네임을 Redux 스토어에 저장하는 함수.
  *
- * @param token
- * @returns {*|null}
+ * @param {function} dispatch - Redux 의 dispatch 함수
  */
-export const decodeToken = (token) => {
-    const base64UrlDecode = (str) => {
-        const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-        return JSON.parse(jsonPayload);
-    };
-
-    try {
-        const payload = token.split('.')[1]; // JWT의 페이로드 부분
-        const decodedPayload = base64UrlDecode(payload);
-        return decodedPayload.name; // name 추출
-    } catch (error) {
-        console.error('토큰 디코딩 중 오류:', error);
-        return null;
-    }
+export const handleToken = (dispatch) => {
+    const name = decodeToken(localStorage.getItem('token'));
+    dispatch(setUserInfo({ name }));
 };
 
 
 /**
+ * JWT 토큰을 디코딩하여 페이로드에서 사용자 이름을 추출하는 함수.
  *
- * @param token
- * @param dispatch
+ * 1. Base64Url 인코딩을 일반 Base64 인코딩으로 변환.
+ * 2. Base64 인코딩된 문자열을 디코딩.
+ *
+ * @param {string} token - 디코딩할 JWT 토큰
+ * @returns {string|null} 디코딩된 사용자 이름. 오류 발생 시 null을 반환.
  */
-export const handleToken = (token, dispatch) => {
-    const name = decodeToken(token);
-    if (name) {
-        localStorage.setItem('token', token); // 토큰을 로컬 스토리지에 저장
-        dispatch(setUserInfo({ name })); // 중앙저장소에 name 저장
-    } else {
-        localStorage.removeItem('token'); // 토큰이 유효하지 않으면 제거
-        dispatch(clearUserInfo()); // 중앙저장소 비우기
+const decodeToken = (token) => {
+    try {
+        const payload = token.split('.')[1];
+        const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
+        const decoded = JSON.parse(decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join('')));
+
+        return decoded.name;
+
+    } catch (error) {
+        console.error('토큰 디코딩 중 오류:', error);
+        return null;
     }
 };

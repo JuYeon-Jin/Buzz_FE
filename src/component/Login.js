@@ -31,10 +31,14 @@ const Login = () => {
             })
         });
 
-        if (response.ok) { // 응답이 성공적이면
-            const data = await response.text();
-            handleToken(data, dispatch);
-            navigate("/"); // 성공 시 홈으로 이동
+        const token = response.headers.get('Authorization');
+        if (token && token.startsWith('Bearer ')) {
+            localStorage.setItem('token', token.split(' ')[1]);
+            handleToken(dispatch);
+        }
+
+        if (response.ok) {
+            navigate("/");
         }
     }
 

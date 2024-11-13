@@ -29,14 +29,15 @@ ul {
 }
 
 input,
-button {
+button,
+select {
     font-family: Pretendard-Regular;
 }
 
 /* ============== 헤더 CSS ================ */
 
 header {
-    height: 151px;
+    height: 165px;
     width: 1080px;
 
     margin: auto;
@@ -45,7 +46,7 @@ header {
 
 .user-nav {
     position: absolute;
-    top: 10px;
+    top: 14px;
     right: 25px;
 }
 
@@ -60,7 +61,7 @@ header {
 
 .logo {
     position: absolute;
-    top: 45%;
+    top: 48%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

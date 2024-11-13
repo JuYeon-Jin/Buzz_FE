@@ -19,6 +19,11 @@ const Join = () => {
     const [nameValid, setNameValid] = useState(false);
 
 
+    /**
+     * 아이디 입력
+     *
+     * @param event Blur
+     */
     const handleUsernameChange = (event) => {
         const value = event.target.value;
         setUsername(value);
@@ -30,6 +35,11 @@ const Join = () => {
         }
     }
 
+    /**
+     * 비밀번호 입력
+     *
+     * @param event Blur
+     */
     const handlePasswordChange = (event) => {
         const value = event.target.value;
         setPassword(value);
@@ -41,6 +51,11 @@ const Join = () => {
         }
     }
 
+    /**
+     * 비밀번호 확인 입력
+     *
+     * @param event Blur
+     */
     const handlePasswordConfirm = (event) => {
         const value = event.target.value;
         setPasswordConfirm(value);
@@ -52,6 +67,11 @@ const Join = () => {
         }
     }
 
+    /**
+     * 닉네임 입력
+     *
+     * @param event Blur
+     */
     const handleNameChange = (event) => {
         const value = event.target.value;
         setName(value);
@@ -63,34 +83,60 @@ const Join = () => {
         }
     }
 
+    /**
+     * 아이디 중복 체크
+     */
+    const checkIdDuplicate = () => {
+        serverPostRequest("/duplicate-id", {
+            username: username
+        }).then(response => response.json())
+          .then(data => {
+            if (!data) {
+                // TODO 아이디 체크에 따른 JSX 분기처리 필요
+            } else {
+                alert("중복된 아이디");
+            }
+        });
+    }
 
-    const finalConfirm = () => {
+    /**
+     * 회원가입 요청시 최종 점검 후 서버에 요청
+     */
+    const joinRequest = () => {
         if (usernameValid && passwordValid && passwordConfirm && nameValid) {
-            joinRequest().then(r => navigate("/"));
+            serverPostRequest("/join", {
+                username: username,
+                password: password,
+                name: name
+            }).then(response => {
+                const token = response.headers.get('Authorization');
+                if (token && token.startsWith('Bearer ')) {
+                    localStorage.setItem('token', token.split(' ')[1]);
+                    handleToken(dispatch);
+                    navigate("/");
+                }
+            });
         } else {
             alert("회원가입 양식 입력이 완료되지 않았습니다.");
         }
     }
 
 
-    const joinRequest = async () => {
-        const response = await fetch('http://localhost:8080/user/join', {
+    /**
+     * 서버에 post 요청을 보내고 response 를 return 한다.
+     */
+    const serverPostRequest = async (path, body) => {
+        const url = `http://localhost:8080/user${path}`;
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                username: username,
-                password: password,
-                name: name
-            })
+            body: JSON.stringify(body)
         });
 
-        const data = await response.text();
-        // TODO 왜 dispatch 를 여기서 건네줘야 하는지 ?
-        handleToken(data, dispatch);
+        return response;
     }
-
 
 
     return (
@@ -103,7 +149,7 @@ const Join = () => {
                         <img src="img/user.png" className="img-login" alt=""/>
                         <input type="text" placeholder="아이디" maxLength="15" onBlur={handleUsernameChange}
                                className={`width100 ${username ? (usernameValid ? 'valid-true' : 'valid-false') : ''}`}/>
-                        <button className="duplication-check-btn">중복체크</button>
+                        <button className="duplication-check-btn" onClick={checkIdDuplicate}>중복체크</button>
                     </div>
 
                     <div className="input-wrapper">
@@ -144,7 +190,7 @@ const Join = () => {
 
 
                 <div className="center-container-button">
-                    <button className="join-button" onClick={finalConfirm}>회원가입</button>
+                    <button className="join-button" onClick={joinRequest}>회원가입</button>
                 </div>
 
             </div>

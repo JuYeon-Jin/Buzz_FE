@@ -71,6 +71,19 @@
 }
 
 .new-post {
-    padding-left: 7px;
+    padding-left: 8px;
     color: red;
+}
+
+.comment-count {
+    padding-left: 7px;
+    font-size: 12px;
+}
+
+.file-exist-img {
+    height: 15px;
+    width: auto;
+    position: relative;
+    top: 3px;
+    right: 0;
 }
